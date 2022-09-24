@@ -1,8 +1,10 @@
 
 console.log('hey')
 var UploadedFile = []
-var TeamList =[]
+var TeamList = []
+var leastArray=[]
 function getFile() {
+    this.UploadedFile = []
     let fileReader= new FileReader()
     let inputElement = document.createElement('input')
     inputElement.setAttribute('type','file')
@@ -23,16 +25,16 @@ function getFile() {
 
 }
 
-function calculateMean() {
+function Evaluate() {
     this.TeamList = []
     if (this.UploadedFile.length < 1) {
         alert('Upload Data fist')
         return
     }
     this.TeamList.push({
+        project: this.UploadedFile[0]['Project Name'],
         teamName: this.UploadedFile[0]['Team'],
         count: 1,
-        project: this.UploadedFile[0]['Project Name'],
         time: this.UploadedFile[0]['Hours']
     })
     let index = -1;
@@ -55,10 +57,10 @@ function calculateMean() {
             this.TeamList[index]['project']= this.UploadedFile[i]['Project Name']
         } else {
             this.TeamList.push({
+                project: this.UploadedFile[i]['Project Name'],
                 teamName: this.UploadedFile[i]['Team'],
                 count: 1,
                 time: this.UploadedFile[i]['Hours'],
-                project: this.UploadedFile[i]['Project Name'],
             }) 
         }
     }
@@ -72,5 +74,39 @@ function getMean(val){
             this.TeamList[i]['meanValue']= (Number(this.TeamList[i]['time'])/Number(this.TeamList[i]['count'])).toFixed(2)
         }
     }
+ console.log(this.TeamList)
+}
 
+function GetLeastEfficient(num = 5) {
+    console.log(this.UploadedFile[2])
+    this.leastArray = new Array(num).fill({ emp: '', hrs: -1 })
+    let empExist = false
+    let least
+    let arr = [...this.UploadedFile]
+
+
+    for (let i = 0; i < this.UploadedFile.length-1500; i++) {
+    
+        empExist = false
+        least = ''
+        let index =-1
+        this.leastArray.map((ele, ind )=> {
+            if (ele['hrs'] == -1 ) {
+                index = ind
+                empExist = ele['emp']==this.UploadedFile[i]['Owner']
+            } else if ((ele['hrs'] > this.UploadedFile[i]['Hours'])) {
+                index = ind
+                empExist = ele['emp']==this.UploadedFile[i]['Owner']
+            }
+        })
+        console.log(empExist, index,this.leastArray.filter(ele => ele['emp']==this.UploadedFile[i]['Owner']).length)
+        if(this.leastArray.filter(ele => ele['emp']==this.UploadedFile[i]['Owner']).length<1 && index>-1) {
+            this.leastArray[index]['hrs'] = this.UploadedFile[i]['Hours'];
+            this.leastArray[index]['emp'] = this.UploadedFile[i]['Owner'];
+        } else {
+            
+        }
+    }
+
+    console.log(this.leastArray)
 }
