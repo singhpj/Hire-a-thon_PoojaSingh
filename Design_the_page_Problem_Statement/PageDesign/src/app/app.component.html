@@ -1,0 +1,49 @@
+<div id="container">
+  <div class="home_panel">
+
+<!--    Title-->
+    <div class="title-bar">
+      <img src="assets/Logo%20Web%202/Logo%20Web%202.png">
+      <div class="menu">
+        <div class="menu-option {{activeMenu==ele?'active':''}}" *ngFor="let ele of menuTitles">{{ele}}
+          <div *ngIf="activeMenu==ele" class="dash"></div>
+        </div>
+        <button class="flat_button">
+          Add Listing &nbsp;<span class="listing_button_free">Free</span>
+        </button>
+<!--        <div class="dash"></div>-->
+      </div>
+    </div>
+
+    <div class="content">
+<!--      Text Content-->
+      <div class="home_panel_content">
+        <p class="header_text">
+          Private <span>Offices</span> And Workspaces
+        </p>
+        <p class="desc_text">
+          Grow your business in Hamilton with flexible offices and workspaces in a modern coworking environment built for small businesses and teams.
+        </p>
+
+        <div class="home_button_container">
+          <button class="stroked_button"><img src="assets/CustomIcons/Player.svg" height="16px" width="16px"> Watch Video</button>
+          <button class="flat_button">Book Now</button>
+        </div>
+
+        <div class="desk_options">
+          <div *ngFor="let ele of deskOptions" [class]="ele==activeDesk?'desk_option active':'desk_option'">
+            {{ele}}
+            <div class="desk_options_dash {{ele==activeDesk?'active':''}}"></div>
+          </div>
+        </div>
+      </div>
+<!--      Image Content-->
+      <div class="home_panel_image">
+        <img height="366px" width="314px" src="../assets/otherImages/12938/12938.png">
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

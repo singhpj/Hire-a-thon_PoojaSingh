@@ -1,5 +1,5 @@
 
-console.log('hey')
+
 var UploadedFile = []
 var TeamList = []
 var leastArray=[]
@@ -11,7 +11,7 @@ function getFile() {
     inputElement.click();
     inputElement.addEventListener('change', event => {
         let file=inputElement.files[0]
-        console.log(inputElement.files[0])  
+        // console.log(inputElement.files[0])  
         fileReader.onload = (data) => {
             // console.log(fileReader.result, data.target.result)
             let WB = XLSX.read(data.target.result, {type:"binary"})
@@ -74,39 +74,51 @@ function getMean(val){
             this.TeamList[i]['meanValue']= (Number(this.TeamList[i]['time'])/Number(this.TeamList[i]['count'])).toFixed(2)
         }
     }
- console.log(this.TeamList)
-}
-
-function GetLeastEfficient(num = 5) {
-    console.log(this.UploadedFile[2])
-    this.leastArray = new Array(num).fill({ emp: '', hrs: -1 })
-    let empExist = false
-    let least
-    let arr = [...this.UploadedFile]
-
-
-    for (let i = 0; i < this.UploadedFile.length-1500; i++) {
+    // console.log(this.TeamList)
+    document.getElementById('result').innerText = JSON.stringify(this.TeamList)
     
-        empExist = false
-        least = ''
-        let index =-1
-        this.leastArray.map((ele, ind )=> {
-            if (ele['hrs'] == -1 ) {
-                index = ind
-                empExist = ele['emp']==this.UploadedFile[i]['Owner']
-            } else if ((ele['hrs'] > this.UploadedFile[i]['Hours'])) {
-                index = ind
-                empExist = ele['emp']==this.UploadedFile[i]['Owner']
-            }
-        })
-        console.log(empExist, index,this.leastArray.filter(ele => ele['emp']==this.UploadedFile[i]['Owner']).length)
-        if(this.leastArray.filter(ele => ele['emp']==this.UploadedFile[i]['Owner']).length<1 && index>-1) {
-            this.leastArray[index]['hrs'] = this.UploadedFile[i]['Hours'];
-            this.leastArray[index]['emp'] = this.UploadedFile[i]['Owner'];
-        } else {
-            
-        }
-    }
-
-    console.log(this.leastArray)
 }
+
+function GetLeastEfficient() {
+    let num = Number(document.getElementById('inp').value)
+    if (num < 1) {
+        alert('Value should be greater than 0')
+        return
+    }
+    if (this.UploadedFile.length < 1) {
+        alert('Upload Data fist')
+        return
+    }
+    this.leastArray 
+    let index = 0
+    
+    while(this.UploadedFile.length>index){
+        if (this.leastArray.length == 0) {
+            this.leastArray.push({
+                emp: this.UploadedFile[index]['Owner'],
+                hrs: Number(this.UploadedFile[index]['Hours'])
+            })
+        } else {
+            let x = this.leastArray.filter(ele => ele?.emp == this.UploadedFile[index]['Owner']).length
+            if (x > 0) {
+                this.leastArray.map(ele => {
+                    ele.hrs = (ele?.emp == this.UploadedFile[index]['Owner'] && ele?.hrs > this.UploadedFile[index]['Hours'] )?Number(this.UploadedFile[index]['Hours']):ele?.hrs
+                })
+            } else {
+                this.leastArray.push({
+                    emp: this.UploadedFile[index]['Owner'],
+                    hrs: Number(this.UploadedFile[index]['Hours'])
+                })
+            }
+        }
+        index++
+    }
+    // console.log(this.leastArray)
+
+    // console.log(this.leastArray.sort((a, b) => a.hrs - b.hrs))
+    // console.log(this.leastArray)
+    
+    document.getElementById('result').innerText = JSON.stringify(this.leastArray.slice(0,num))
+
+}
+

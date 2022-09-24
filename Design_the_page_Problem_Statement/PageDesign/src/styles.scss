@@ -1,0 +1,84 @@
+
+  $accent:#FF6E00;
+  $accent-border :#FF9700;
+  $accent-lightest: #FFE6D3;
+  $base : #ffffff;
+  $primary: #000;
+  $grey-border: #D8D8D8;
+  $text-color-gray-dark:#525252;
+  $text-color-gray-dark_disabled:#565656;
+  $highight: #00AE6C;
+
+
+
+html, body { height: 100%; };
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: $base
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  border-spacing: 16px;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-top: 50px;
+  align-content: flex-start;
+}
+
+@mixin _button(){
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  font: normal normal medium 16px/20px Proxima Nova;
+  opacity: 1;
+}
+
+.stroked_button{
+  @include _button;
+  border-color: $accent;
+  color: $accent;
+  background: $base;
+
+}
+
+.flat_button{
+  @include _button;
+  border-color: $accent;
+  color: $base;
+  background: $accent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  //@font-face {
+  //  font-family: 'Nunitos';
+  //  src: url('/assets/fonts/'); /* IE9 Compat Modes */
+  //  src: url('/assets/fonts/roboto.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  //  url('/assets/fonts/roboto.woff') format('woff'), /* Modern Browsers */
+  //  url('/assets/fonts/roboto.ttf')  format('truetype'), /* Safari, Android, iOS */
+  //  url('/assets/fonts/roboto.svg#svgFontName') format('svg'); /* Legacy iOS */
+  //}
